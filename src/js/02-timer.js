@@ -1,5 +1,5 @@
 'use strict';
-
+import Notiflix from 'notiflix';
 // Opisany w dokumentacji
 import flatpickr from 'flatpickr';
 // Dodatkowy import stylów
@@ -59,7 +59,7 @@ const options = {
     dates = selectedDates[0].getTime() - options.defaultDate.getTime();
 
     if (selectedDates[0].getTime() < options.defaultDate.getTime()) {
-      window.alert('Please choose a date in the future');
+      Notiflix.Notify.failure('Please choose a date in the future');
     } else {
       startBtn.disabled = false;
     }
