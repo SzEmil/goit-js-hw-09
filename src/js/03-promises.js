@@ -1,6 +1,8 @@
 'use strict';
 import Notiflix from 'notiflix';
 const form = document.querySelector('.form');
+const createPromisesBtn = document.querySelector(".form button")
+
 let promiseNumber = 1;
 let timerId = null;
 let dataPromise = {
@@ -37,6 +39,7 @@ const promiseResult = (promiseNumber, delayVal) => {
 };
 
 const submitPromise = event => {
+  createPromisesBtn.disabled = true;
   console.log('aktywacja submit');
   event.preventDefault();
   //zmienna kontrolująca numer pętli
@@ -67,6 +70,7 @@ const submitPromise = event => {
       //zatrzymywanie pętli gdy osiągnie amount number
       if (n === Number(amount.value)) {
         clearInterval(timerId);
+        createPromisesBtn.disabled = false;
       }
       delayVal += Number(step.value);
     }, Number(step.value));

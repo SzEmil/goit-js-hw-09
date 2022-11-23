@@ -55,6 +55,7 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
+    clearInterval(timerId);
     console.log(selectedDates[0]);
     dates = selectedDates[0].getTime() - options.defaultDate.getTime();
 
@@ -69,6 +70,7 @@ const options = {
 //Event dla przycisku start który rozpoczyna odliczanie, nadaje wartości dla pól zegara załączając funkcje do dodawania 0 do stringa
 const counterHandler = () => {
   console.log('stoper działa');
+  startBtn.disabled = true;
   timerId = setInterval(() => {
     let date = convertMs(dates);
     console.log('odliczanie 1s');
@@ -81,6 +83,10 @@ const counterHandler = () => {
     secondsField.textContent = addLeadingZero(seconds.toString());
 
     dates -= 1000;
+    console.log(dates);
+    if (dates <= 0) {
+      clearInterval(timerId);
+    }
   }, 1000);
 };
 //inicjalizacja kalendarza flatpickr
@@ -90,4 +96,5 @@ startBtn.addEventListener('click', counterHandler);
 stopBtn.addEventListener('click', () => {
   console.log('czas zatrzymany');
   clearInterval(timerId);
+  startBtn.disabled = false;
 });
